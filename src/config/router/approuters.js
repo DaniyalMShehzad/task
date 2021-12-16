@@ -11,6 +11,8 @@ import HotelSignUp from "../../screens/hotelsignup";
 import HotelAppBar from "../../screens/hotelnavbar";
 import HotelRegisteration from "../../screens/hotelregisterationform";
 import BookingCard from "../../screens/bookingcard";
+import AdminAppBar from "../../screens/adminhome";
+import Adminuser from "../../screens/adminuser";
 export {
   //   Home,
   Login,
@@ -22,7 +24,9 @@ export {
   HotelSignUp,
   HotelAppBar,
   HotelRegisteration,
-  BookingCard
-  //   Card,
+  BookingCard,
+  AdminAppBar,
+  Adminuser,
+  Card
   // ForgetPassword
 };

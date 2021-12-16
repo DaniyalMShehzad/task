@@ -9,9 +9,9 @@ export default function Profile() {
   console.log(state.uiddata.userid);
   const userid = { userid: state.uiddata.userid };
   console.log(userid);
-  useEffect(() => {
-    dispatch((dispatch) => profileData(setLoader, dispatch, userid));
-    // console.log(location.state);
-  }, []);
+  // useEffect(() => {
+  //   dispatch((dispatch) => profileData(setLoader, dispatch, userid));
+  //   // console.log(location.state);
+  // }, []);
   return <div></div>;
 }

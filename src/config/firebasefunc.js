@@ -59,7 +59,7 @@ let userLogin = (dispatch, obj, navigate, setLoader, setLoader2) => {
       //   // setUserData(location.state);
       //   // getData();
       // })
-      navigate("/ButtonAppBar");
+      navigate("/Hotels");
     })
     .catch((error) => {
       setLoader(false);
@@ -117,7 +117,7 @@ let signUp = (dispatch, obj, navigate, setLoader) => {
         });
       });
       console.log(newobj.uid);
-      navigate("/ButtonAppBar");
+      navigate("/Hotels");
       setLoader(false);
       // const dbRef = ref(getDatabase());
       // get(child(dbRef, `authentication/${newobj.uid}/newobj`)).then((snapshot) => {
@@ -165,14 +165,14 @@ let signUp = (dispatch, obj, navigate, setLoader) => {
 // //   // No user is signed in.
 // // }
 // }
-const getData = (setLoader, dispatch, userid,navigate) => {
+const getData = (setLoader, dispatch, userid2,navigate) => {
   setLoader(true);
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `authentication/${userid.user}/newobj`))
+  get(child(dbRef, `authentication/${userid2.user}/newobj`))
   .then((snapshot) => {
     // if (snapshot.exists()) {
-    console.log(snapshot.val());
-    let uidData = { ...snapshot.val() };
+    // console.log(snapshot?.val());
+    let uidData = { ...snapshot?.val() };
     // }
     // console.log(uidData.type.type);
     dispatch({
@@ -180,12 +180,14 @@ const getData = (setLoader, dispatch, userid,navigate) => {
       payload: uidData,
     });
     if(uidData.type.type==="user"){
-    navigate("/ButtonAppBar")
+    navigate("/Hotels")
     }
     else if(uidData.type.type==="hotelManagment"){
       navigate("/hotelHome")
-    }else{
-      navigate("/")
+    }else if(uidData.type.type==="admin"){
+      navigate("/adminUser")
+    }
+    else{
     }
     // userid(false )
     // setUserLogin(true);
@@ -198,8 +200,9 @@ const getData = (setLoader, dispatch, userid,navigate) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     // alert(errorMessage, "errar");
-    console.log("erars");
-    navigate("/")
+    // console.log("erars");
+    // navigate("/")
+    // navigate("/")
     // ..
   });
   // .catch((error) => {
@@ -211,42 +214,63 @@ const getData = (setLoader, dispatch, userid,navigate) => {
   //   // ..
   // });
 };
-const profileData = (setLoader, dispatch, userid) => {
-  setLoader(true);
+
+
+const usersauthentication=(dispatch)=>{
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `bookingDetails/${userid.userid}`)).then((snapshot) => {
+  get(child(dbRef, `authentication/`))
+  .then((snapshot) => {
     // if (snapshot.exists()) {
     console.log(snapshot.val());
     let uidData = { ...snapshot.val() };
-    console.log(uidData);
-    // }
-    // dispatch({
-    //   type: "PROFILEDATA",
-    //   payload: uidData,
-    // });
-    setLoader(false);
-    // userid(false )
-    // setUserLogin(true);
-    // setUserData(location.state);
-    // getData();
-  });
-};
+    dispatch({
+      type: "USERUID",
+      payload:uidData,
+    })
+  })
+}
+// const profileData = (setLoader, dispatch, userid) => {
+//   setLoader(true);
+//   const dbRef = ref(getDatabase());
+//   if(state?.useriddata?.userid?.type.type==="user"){
+//     get(child(dbRef, `bookingDetails/${userid.userid}`)).then((snapshot) => {
+//       // if (snapshot.exists()) {
+//       console.log(snapshot.val());
+//       let uidData = { ...snapshot.val() };
+//       console.log(uidData);
+//     });
+//   }
+//     // }
+//     // dispatch({
+//     //   type: "PROFILEDATA",
+//     //   payload: uidData,
+//     // });
+//     // setLoader(false);
+//     // userid(false )
+//     // setUserLogin(true);
+//     // setUserData(location.state);
+//     // getData();
+// };
 const bookingDetails = (dispatch, obj, navigate, setLoader,state) => {
   console.log(obj);
   console.log(state);
   const db = getDatabase();
-  if(state.useriddata.userid.type.type==="user"){
-    set(ref(db, "bookingDetails/" + obj.userid), obj)
-    navigate("/ButtonAppBar");
+  if(state?.useriddata?.userid?.type.type==="user"){
+    set(ref(db, "bookingDetails/" + state.uiddata.userid), obj)
+    navigate("/Holets");
   }
   else if(state.useriddata.userid.type.type==="hotelManagment"){
     set(ref(db, "HotelbookingDetails/" + obj.userid), obj)
     navigate("/hotelHome");
   }
-  dispatch({
-    type: "BOOKINGDETAILS",
-    ...obj,
-  });
+  // else if(state.useriddata.userid.type.type==="admin"){
+  //   set(ref(db, "HotelbookingDetails/" + obj.userid), obj)
+  //   navigate("/adminlUser");
+  // }
+  // dispatch({
+  //   type: "BOOKINGDETAILS",
+  //   obj,
+  // });
   console.log(obj);
   // push(ref(db, + 'studentData/'), obj)
   //   .then(() => {
@@ -276,29 +300,58 @@ let useruid = (setLoader, dispatch, navigate) => {
       });
       setLoader(false);
     } else {
+      // console.log("error");
+      navigate("/");
+      // window.location.pathname.split("/")
+    }
+  });
+};
+
+let useruidhotel = (setLoader, dispatch, navigate) => {
+  setLoader(true);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      console.log(uid);
+      setLoader(false);
+    } else {
       console.log("error");
       navigate("/");
       // window.location.pathname.split("/")
     }
   });
 };
-const hotelData = (dispatch) => {
+const hotelData = (dispatch,state) => {
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `HotelbookingDetails/`)).then((snapshot) => {
-    // if (snapshot.exists()) {
-    console.log(snapshot.val());
-    let uidData = { ...snapshot.val() };
-    // }
-    dispatch({
-      type: "HOTELDATA",
-      payload: uidData,
+  if(state?.useriddata?.userid?.type.type==="user"){
+    get(child(dbRef, `HotelbookingDetails/`)).then((snapshot) => {
+      // if (snapshot.exists()) {
+      console.log(snapshot.val());
+      const uidData = { ...snapshot?.val() };
+      dispatch({
+        type: "HOTELDATA",
+        payload: uidData,
+      });
     });
+  }
+  else if(state?.useriddata?.userid?.type.type==="hotelManagment"){
+    get(child(dbRef, `bookingDetails/`)).then((snapshot) => {
+      // if (snapshot.exists()) {
+      console.log(snapshot.val());
+      const uidData = { ...snapshot?.val() };
+      dispatch({
+        type: "HOTELDATA",
+        payload: uidData,
+      });
+    });
+  }
+
+    // }
     // setLoader(false);
     // userid(false )
     // setUserLogin(true);
     // setUserData(location.state);
     // getData();
-  });
 };
 let signout = (navigate, setLoader) => {
   setLoader(true);
@@ -320,5 +373,7 @@ export {
   getData,
   hotelData,
   bookingDetails,
-  profileData,
+  // profileData,
+  usersauthentication,
+  useruidhotel
 };

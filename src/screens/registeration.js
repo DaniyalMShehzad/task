@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Button from "../components/button";
 import InputText from "../components/input";
-import { bookingDetails, signUp } from "../config/firebasefunc";
+import { bookingDetails, signUp, useruid } from "../config/firebasefunc";
 import { Input } from "antd";
 import Png from "./png.gif";
 // import { Result } from "antd";
@@ -18,16 +18,22 @@ export default function Registeration() {
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
   const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
   const [rooms, setRooms] = useState("");
   const [userid, setUserid] = useState("");
+  const [adults, setAdults] = useState("");
+  const [children, setChildren] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loader, setLoader] = useState();
   const state = useSelector((e) => e);
-  console.log(state.uiddata.userid);
-  useEffect(() => {
-    setUserid(state.uiddata.userid);
-  }, []);
+  console.log(state);
+  // useEffect(() => {
+    // }, []);
+    useEffect(()=>{
+      setUserid(window.location.pathname.split("/")[2])
+      setCountry(state.useriddata.userid.country);
+},[])
   let Register = (e) => {
     e.preventDefault();
     let obj = {
@@ -39,12 +45,24 @@ export default function Registeration() {
       country,
       rooms,
       userid,
+      adults,
+      children,
+      city
     };
-    dispatch((dispatch) => bookingDetails(dispatch, obj, navigate, setLoader));
+    dispatch((dispatch) => bookingDetails(dispatch, obj, navigate, setLoader,state));
   };
+  console.log(userid);
   function handleChange(value) {
     console.log(value);
     setRooms(value);
+  }  
+  function handleChange2(value) {
+    console.log(value);
+    setAdults(value);
+  }  
+  function handleChange3(value) {
+    console.log(value);
+    setChildren(value);
   }
   return (
     <>
@@ -53,7 +71,7 @@ export default function Registeration() {
         <img src={Png} />
       ) : (
         <>
-          <ButtonAppBar />
+          {/* <ButtonAppBar /> */}
           <div className="SignUp">
             {/* <Navbar /> */}
             <div className="SignUp2">
@@ -105,6 +123,30 @@ export default function Registeration() {
                     </Select>
                   </div>
                   <div className="setEmail">
+                    <Select
+                      defaultValue="1 adults"
+                      style={{ width: 120 }}
+                      onChange={handleChange2}
+                      // value={rooms}
+                    >
+                      <Option value="1 adults">1 adults</Option>
+                      <Option value="2 adults">2 adults</Option>
+                      <Option value="3 adults">3 adults</Option>
+                    </Select>
+                  </div>
+                  <div className="setEmail">
+                    <Select
+                      defaultValue="1 children"
+                      style={{ width: 120 }}
+                      onChange={handleChange3}
+                      // value={rooms}
+                    >
+                      <Option value="1 children">1 children</Option>
+                      <Option value="2 children">2 children</Option>
+                      <Option value="3 children">3 children</Option>
+                    </Select>
+                  </div>
+                  <div className="setEmail">
                     <label className="EmailLabel">Enter Your Address</label>
                     <input
                       className="enterEmail"
@@ -116,13 +158,13 @@ export default function Registeration() {
                     />
                   </div>
                   <div className="setEmail">
-                    <label className="EmailLabel">Country</label>
+                    <label className="EmailLabel">City</label>
                     <input
                       className="enterEmail"
-                      placeholder="Country"
+                      placeholder="city"
                       required
                       type="text"
-                      onChange={(e) => setCountry(e.target.value)}
+                      onChange={(e) => setCity(e.target.value)}
                       // value={country}
                     />
                   </div>

@@ -26,7 +26,7 @@ import Png from "./png.gif";
 // import FormGroup from '@mui/material/FormGroup';
 const drawerWidth = 240;
 
-export default function ButtonAppBar(props) {
+export default function AdminAppBar(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
     const navigate = useNavigate()
@@ -44,38 +44,24 @@ export default function ButtonAppBar(props) {
     let Logout = () => {
         dispatch(() => signout(navigate, setLoader));
     };
-    
+    useEffect(() => {
+        dispatch(() => useruidhotel(setLoader, dispatch, navigate));
+        // console.log(location.state);
+      }, []);
     // console.log(state.useriddata.userid.type.type);
     let userid = { user: state.uiddata.userid };
     // console.log(userid);
     let condition = {}
     condition = { condition: state?.useriddata?.userid?.type?.type }
     useEffect(() => {
-      dispatch(() => useruidhotel(setLoader, dispatch, navigate));
-      // console.log(location.state);
-    }, []);
-    useEffect(() => {
         // console.log(condition.condition);
         dispatch(() => getData(setLoader, dispatch, userid, navigate));
         // console.log(location.state);
-    }, [getData]);
-    let userid2 = { user: state.uiddata.userid };
-    useEffect(() => {
-      dispatch(() => getData(setLoader, dispatch, userid2,navigate));
-      // console.log(location.state);
     }, []);
-    // const handleChange = (event) => {
-    //   setAuth(event.target.checked);
-    // };
-  
-    const handleMenu = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      navigate("/profile");
-      setAnchorEl(null);
-    };
+    // useEffect(()=>{
+    //   const firstData = window().location.pathname.split("/")
+    // },[])                
+
     // console.log(firstData);
     const drawer = (
         <div>
@@ -86,8 +72,8 @@ export default function ButtonAppBar(props) {
             </div>
             <Divider />
             <List>
-                {['profile', 'Hotels'].map((e, index) => (
-                    <ListItem button key={e} onClick={() => navigate(`/${e}`)}>
+                {[ 'User'].map((e, index) => (
+                    <ListItem button key={e} onClick={() => navigate(`/admin${e}`)}>
                         <ListItemIcon>
                             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                         </ListItemIcon>
@@ -106,10 +92,13 @@ export default function ButtonAppBar(props) {
                 <img src={Png} />
             ) : (
 
-                (condition.condition === "hotelManagment") ?
+                (condition.condition === "user") ?
                     null
                     :
-                    (condition.condition === "user") ?
+                    (condition.condition === "hotelManagment") ?
+                    null
+                    :
+                    (condition.condition === "admin") ?
                         <Box sx={{ display: 'flex' }}>
                             <CssBaseline />
                             <AppBar
@@ -183,10 +172,10 @@ export default function ButtonAppBar(props) {
     );
 }
 
-ButtonAppBar.propTypes = {
+AdminAppBar.propTypes = {
     /**
      * Injected by the documentation to work in an iframe.
      * You won't need it on your project.
      */
     window: PropTypes.func,
-}
+};

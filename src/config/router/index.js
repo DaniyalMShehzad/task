@@ -9,8 +9,11 @@ import {
 import Profile from "../../screens/profile";
 import { firebaseRedrict, useruid } from "../firebasefunc";
 import {
+  AdminAppBar,
+  Adminuser,
   BookingCard,
   ButtonAppBar,
+  Card,
   HotelAppBar,
   HotelLogin,
   HotelRegisteration,
@@ -40,22 +43,25 @@ export default function AppRouter(props) {
     <>
       <Routes>
         {/* <Route exact path="/" element={<Home />} /> */}
-        <Route path="/" element={<Login />} />
+        <Route exact path="/" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/hotellogin" element={<HotelLogin />} />
         <Route path="/Hotelsignup" element={<HotelSignUp />} />
       </Routes>
-      {/* {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/hotellogin" || window.location.pathname === "/Hotelsignup" ||window.location.pathname === "/hotelhome"||window.location.pathname === "/hotelRegisteration" ?
+      {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/hotellogin" || window.location.pathname === "/Hotelsignup" ||window.location.pathname === "/hotelhome"||window.location.pathname === "/hotelRegisteration" ?
         <>
         </>
-        : */}
+        :
         <>
+        <ButtonAppBar>
           <Routes>
-            <Route path="/registeration" element={<Registeration />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/ButtonAppBar" element={<ButtonAppBar />} />
+            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/Hotels" element={<Card />} />
+            <Route exact path="/registeration/:uid" element={<Registeration />} />
           </Routes>
+          </ButtonAppBar>
         </>
+}
       {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/hotellogin" || window.location.pathname === "/Hotelsignup" ?
         <>
         </>
@@ -67,6 +73,19 @@ export default function AppRouter(props) {
               <Route path="/hotelRegisteration" element={<HotelRegisteration />} />
             </Routes>
           </HotelAppBar>
+        </>
+      }
+      {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/hotellogin" || window.location.pathname === "/Hotelsignup" ?
+        <>
+        </>
+        :
+        <>
+          <AdminAppBar>
+            <Routes>
+              <Route path="/adminUser" element={<Adminuser />} />
+              {/* <Route path="/hotelRegisteration" element={<HotelRegisteration />} /> */}
+            </Routes>
+          </AdminAppBar>
         </>
       }
       {/* </Router> */}

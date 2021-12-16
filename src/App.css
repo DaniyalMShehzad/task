@@ -353,7 +353,7 @@ footer.footer {
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 
 .CardsH3 {
@@ -392,16 +392,46 @@ p.CardsPrice {
 }
 
 img.CardsIMG {
-  width: 90%;
+  width: 85%;
   margin-top: 8px;
+  margin-bottom: 8px;
+  height: 238px;
 }
 
 .Cards4 {
-  width: 30%;
+  width: 100%;
   /* background-color: ghostwhite; */
   margin-bottom: 17px;
-  border: 1px solid #878787;
+  border: 2px outset;
   border-radius: 16px;
+  display: flex;
+}
+.CardsIMAGe {
+  width: 30%;
+}
+.CardsParentH3 {
+  width: 44%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.CardsPriceParent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 26%;
 }
 
+.BookingCards3.container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.BookingCards4 {
+  width: 45%;
+  border: 2px outset;
+  border-radius: 14px;
+}
 /* cards */

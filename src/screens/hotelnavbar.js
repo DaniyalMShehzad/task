@@ -18,7 +18,7 @@ import Toolbar from "@mui/material/Toolbar";
 // import Button from '@mui/material/Button';
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { getData, signout, useruid } from "../config/firebasefunc";
+import { getData, signout, useruid, useruidhotel } from "../config/firebasefunc";
 import { useEffect, useState } from "react";
 import Png from "./png.gif";
 import HotelRegisteration from "./hotelregisterationform"
@@ -45,13 +45,17 @@ export default function HotelAppBar(props) {
     let Logout = () => {
         dispatch(() => signout(navigate, setLoader));
     };
+    useEffect(() => {
+        dispatch(() => useruidhotel(setLoader, dispatch, navigate));
+        // console.log(location.state);
+      }, []);
     // console.log(state.useriddata.userid.type.type);
     let userid = { user: state.uiddata.userid };
-    console.log(userid);
+    // console.log(userid);
     let condition = {}
     condition = { condition: state?.useriddata?.userid?.type?.type }
     useEffect(() => {
-        console.log(condition.condition);
+        // console.log(condition.condition);
         dispatch(() => getData(setLoader, dispatch, userid, navigate));
         // console.log(location.state);
     }, [getData]);
