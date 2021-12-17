@@ -5,8 +5,12 @@
   --Buttoncolor: #000;
 }
 
+body {
+}
+
 .App {
   text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji ;
 }
 
 .head {
@@ -342,8 +346,71 @@ footer.footer {
 
 
 
+.adminUser {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
+tr.admintr {
+  border-bottom: 1px outset;
+  font-size: 20px;
+}
 
+table.adminUser2 {
+  width: 50%;
+  /* display: flex; */
+  /* flex-direction: column; */
+  text-align: justify;
+  border: 1px solid #878787;
+}
+
+tr.admintrbody {
+  border: 1px outset;
+}
+
+td.adminbody {
+  border: 1px solid black;
+}
+
+th.adminthead {
+  border: 1px solid black;
+}
+
+.ProfileCards4 {
+  border: 1px outset;
+  width: 40%;
+}
+
+.Profile3.container {
+  display: flex;
+  justify-content: center;
+}
+
+h3.ProfileH3 {
+  margin: 0;
+  font-size: 26px;
+}
+.ProfileH3 {
+  margin: 0;
+  font-size: 21px;
+}
+p.ProfileP {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+.stateuiddata {
+  margin: 28px;
+}
+p.ProfilePrice {
+  margin: 0;
+  font-size: 16px;
+}
+p.ProfilePrice {
+  margin-bottom: 8px;
+  font-size: 17px;
+}
 
 /* Cards */
 
@@ -406,9 +473,11 @@ img.CardsIMG {
   border-radius: 16px;
   display: flex;
 }
+
 .CardsIMAGe {
   width: 30%;
 }
+
 .CardsParentH3 {
   width: 44%;
   text-align: left;
@@ -417,6 +486,7 @@ img.CardsIMG {
   align-items: flex-start;
   justify-content: center;
 }
+
 .CardsPriceParent {
   display: flex;
   flex-direction: column;
@@ -429,9 +499,11 @@ img.CardsIMG {
   display: flex;
   justify-content: space-evenly;
 }
+
 .BookingCards4 {
   width: 45%;
   border: 2px outset;
   border-radius: 14px;
 }
+
 /* cards */

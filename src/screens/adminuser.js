@@ -9,42 +9,40 @@ export default function Adminuser() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const state = useSelector((e) => e)
+    console.log(Object.values(state.useruid.userid));
     useEffect(() => {
-        console.log(Object.values(state.useruid.userid));
-        dispatch((dispatch) => usersauthentication(dispatch))
         setData(Object.values(state?.useruid?.userid))
+        dispatch((dispatch) => usersauthentication(dispatch))
         console.log(data);
-    }, [])
+    }, [setData])
     return (
         <>
             {/* {data?.map((e,i)=>{
             console.log(e.newobj);
         })} */}
-            <div>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>type</th>
-                        <th>Delete</th>
+            <div className='adminUser'>
+                <table className='adminUser2'>
+                    <tr className='admintr'>
+                        <th className='adminthead'>Name</th>
+                        <th className='adminthead'>Email</th>
+                        <th className='adminthead'>type</th>
+                        {/* <th className='adminthead'>Delete</th> */}
                     </tr>
                     {data?.map((e,i) => {
                         console.log(e);
-                        // if(e.newobj.type.type==="admin"){
-                        //     null
-                        // }
-                        // else{
-                        return (
-                            <>
-                            <tr key={i}>
-                                <td>{e.newobj.name}</td>
-                                <td>{e.newobj.email}</td>
-                                <td>{e.newobj.type.type}</td>
-                                {/* <td>{e.newobj.name}</td> */}
-                            </tr>
-                            </>
-                        )
-                        // }
+                        if(e.newobj.type.type!="admin"){
+                            return (
+                                <>
+                                <tr className='admintrbody' key={i}>
+                                    <td className='adminbody'>{e.newobj.name}</td>
+                                    <td className='adminbody'>{e.newobj.email}</td>
+                                    <td className='adminbody'>{e.newobj.type.type}</td>
+                                    {/* <td>{e.newobj.name}</td> */}
+                                </tr>
+                                </>
+                            )
+                        }
+                       
                     })}
                     <></>
                 </table>

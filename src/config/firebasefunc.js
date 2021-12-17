@@ -222,7 +222,7 @@ const usersauthentication=(dispatch)=>{
   .then((snapshot) => {
     // if (snapshot.exists()) {
     console.log(snapshot.val());
-    let uidData = { ...snapshot.val() };
+    let uidData = { ...snapshot?.val() };
     dispatch({
       type: "USERUID",
       payload:uidData,
@@ -293,7 +293,7 @@ let useruid = (setLoader, dispatch, navigate) => {
   setLoader(true);
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const uid = user.uid;;
+      const uid = auth.currentUser.uid;
       dispatch({
         type: "USERUIDDATA",
         payload: uid,
@@ -307,13 +307,15 @@ let useruid = (setLoader, dispatch, navigate) => {
   });
 };
 
-let useruidhotel = (setLoader, dispatch, navigate) => {
+let useruidhotel = (setLoader, dispatch, navigate,condition) => {
   setLoader(true);
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const uid = user.uid;
+      const uid = auth.currentUser.uid;
       console.log(uid);
+      // if(condition.condition==="user")
       setLoader(false);
+      // navigate("/hotelHome")
     } else {
       console.log("error");
       navigate("/");
@@ -345,7 +347,9 @@ const hotelData = (dispatch,state) => {
       });
     });
   }
-
+  // else{
+  // null
+  // } 
     // }
     // setLoader(false);
     // userid(false )

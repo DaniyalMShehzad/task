@@ -44,15 +44,15 @@ export default function AdminAppBar(props) {
     let Logout = () => {
         dispatch(() => signout(navigate, setLoader));
     };
+    let condition = {}
+    condition = { condition: state?.useriddata?.userid?.type?.type }
     useEffect(() => {
-        dispatch(() => useruidhotel(setLoader, dispatch, navigate));
+        dispatch(() => useruidhotel(setLoader, dispatch, navigate,condition));
         // console.log(location.state);
       }, []);
     // console.log(state.useriddata.userid.type.type);
     let userid = { user: state.uiddata.userid };
     // console.log(userid);
-    let condition = {}
-    condition = { condition: state?.useriddata?.userid?.type?.type }
     useEffect(() => {
         // console.log(condition.condition);
         dispatch(() => getData(setLoader, dispatch, userid, navigate));

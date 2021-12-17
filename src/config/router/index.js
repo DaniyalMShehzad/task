@@ -48,7 +48,7 @@ export default function AppRouter(props) {
         <Route path="/hotellogin" element={<HotelLogin />} />
         <Route path="/Hotelsignup" element={<HotelSignUp />} />
       </Routes>
-      {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/hotellogin" || window.location.pathname === "/Hotelsignup" ||window.location.pathname === "/hotelhome"||window.location.pathname === "/hotelRegisteration" ?
+      {window.location.pathname === "/" || window.location.pathname === "/signup" || window.location.pathname === "/hotellogin" || window.location.pathname === "/Hotelsignup" ?
         <>
         </>
         :

@@ -45,19 +45,18 @@ export default function HotelAppBar(props) {
     let Logout = () => {
         dispatch(() => signout(navigate, setLoader));
     };
-    useEffect(() => {
-        dispatch(() => useruidhotel(setLoader, dispatch, navigate));
-        // console.log(location.state);
-      }, []);
-    // console.log(state.useriddata.userid.type.type);
-    let userid = { user: state.uiddata.userid };
-    // console.log(userid);
     let condition = {}
     condition = { condition: state?.useriddata?.userid?.type?.type }
     useEffect(() => {
+        dispatch(() => useruidhotel(setLoader, dispatch, navigate,condition));
+        // console.log(location.state);
+      }, []);
+    console.log();
+    let userid = { user: state.uiddata.userid };
+    // console.log(userid);
+    useEffect(() => {
         // console.log(condition.condition);
         dispatch(() => getData(setLoader, dispatch, userid, navigate));
-        // console.log(location.state);
     }, [getData]);
     // useEffect(()=>{
     //   const firstData = window().location.pathname.split("/")
@@ -69,7 +68,9 @@ export default function HotelAppBar(props) {
             <Toolbar />
             <Divider />
             <div className="stateuiddata">
-                <button onClick={() => Logout()}>signout</button>
+            <h3 className='navbarH3'>{state?.useriddata?.userid?.name}</h3>
+                <h3 className='navbarH3'>{state?.useriddata?.userid?.email}</h3>
+                <button className='navbarbtn' onClick={() => Logout()}>signout</button>
             </div>
             <Divider />
             <List>
@@ -92,7 +93,9 @@ export default function HotelAppBar(props) {
             {loader ? (
                 <img src={Png} />
             ) : (
-
+                (condition.condition === "admin") ?
+                    null
+                    :
                 (condition.condition === "user") ?
                     null
                     :

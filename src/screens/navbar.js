@@ -45,20 +45,20 @@ export default function ButtonAppBar(props) {
         dispatch(() => signout(navigate, setLoader));
     };
     
+    let condition = {}
+    condition = { condition: state?.useriddata?.userid?.type?.type }
     // console.log(state.useriddata.userid.type.type);
     let userid = { user: state.uiddata.userid };
     // console.log(userid);
-    let condition = {}
-    condition = { condition: state?.useriddata?.userid?.type?.type }
     useEffect(() => {
-      dispatch(() => useruidhotel(setLoader, dispatch, navigate));
+      dispatch(() => useruidhotel(setLoader, dispatch, navigate,condition));
       // console.log(location.state);
     }, []);
-    useEffect(() => {
-        // console.log(condition.condition);
-        dispatch(() => getData(setLoader, dispatch, userid, navigate));
-        // console.log(location.state);
-    }, [getData]);
+    // useEffect(() => {
+    //     // console.log(condition.condition);
+    //     dispatch(() => getData(setLoader, dispatch, userid, navigate));
+    //     // console.log(location.state);
+    // }, [getData]);
     let userid2 = { user: state.uiddata.userid };
     useEffect(() => {
       dispatch(() => getData(setLoader, dispatch, userid2,navigate));
@@ -67,7 +67,7 @@ export default function ButtonAppBar(props) {
     // const handleChange = (event) => {
     //   setAuth(event.target.checked);
     // };
-  
+    // console.log(state.useriddata.userid.name);
     const handleMenu = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -82,7 +82,9 @@ export default function ButtonAppBar(props) {
             <Toolbar />
             <Divider />
             <div className="stateuiddata">
-                <button onClick={() => Logout()}>signout</button>
+                <h3 className='navbarH3'>{state?.useriddata?.userid?.name}</h3>
+                <h3 className='navbarH3'>{state?.useriddata?.userid?.email}</h3>
+                <button className='navbarbtn' onClick={() => Logout()}>signout</button>
             </div>
             <Divider />
             <List>
@@ -105,7 +107,9 @@ export default function ButtonAppBar(props) {
             {loader ? (
                 <img src={Png} />
             ) : (
-
+                (condition.condition === "admin") ?
+                    null
+                    :
                 (condition.condition === "hotelManagment") ?
                     null
                     :
